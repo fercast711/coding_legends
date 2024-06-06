@@ -2,7 +2,9 @@ import { Formik, Form, Field, ErrorMessage } from "formik"
 import { useState } from "react";
 import * as Yup from "yup";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 export const Filter = () => {
+    const navigation = useNavigate()
     const [selection, setSelection] = useState("")
     const [selection1, setSelection1] = useState("")
     const initialValues = {
@@ -26,11 +28,14 @@ export const Filter = () => {
     const handleSubmit = (values, actions) => {
         axios.post('/api/filter', values)
             .then(response => {
+
                 console.log('Respuesta del servidor:', response.data);
             })
             .catch(error => {
                 console.error('Error al enviar la solicitud:', error);
             });
+        
+        navigation('/')
         actions.resetForm()
     };
     return (
@@ -43,9 +48,9 @@ export const Filter = () => {
                     onSubmit={handleSubmit}
                 >
                     {({ isSubmitting }) => (
-                        <Form className="bg-slate-100 p-3 rounded-lg flex flex-col  w-96">
+                        <Form className="bg-slate-900 p-3 rounded-lg flex flex-col  w-96">
                             <div >
-                                <label htmlFor="day" className="">Dia</label>
+                                <label htmlFor="day" className="text-white">Dia</label>
                                 <Field as="select" name="day" className='px-3 py-2 focus:outline-none rounded bg-slate-600 text-white w-full mb-4'>
                                     <option value=''>Seleccione un dia</option>
                                     <option value='TODAS'>Todos</option>
@@ -58,7 +63,7 @@ export const Filter = () => {
                                 </Field>
                             </div>
                             <div >
-                                <label htmlFor="hour" className="">Hora</label>
+                                <label htmlFor="hour" className="text-white">Hora</label>
                                 <Field as="select" name="hour" className='px-3 py-2 focus:outline-none rounded bg-slate-600 text-white w-full mb-4'>
                                     <option value="">Seleccione una hora</option>
                                     <option value="TODAS">Todas</option>
@@ -75,7 +80,7 @@ export const Filter = () => {
                                 </Field>
                             </div>
                             <div >
-                                <label htmlFor="hour" className="">Facultad o carrera</label>
+                                <label htmlFor="hour" className="text-white">Facultad o carrera</label>
                                 <Field as="select" name="selection" className='px-3 py-2 focus:outline-none rounded bg-slate-600 text-white w-full mb-4' onChange={(e) => {
                                     setSelection(e.target.value)
                                 }}>
@@ -96,7 +101,7 @@ export const Filter = () => {
                                 }
                             </div>
                             <div >
-                                <label htmlFor="hour" className="">Aula o edificio</label>
+                                <label htmlFor="hour" className="text-white">Aula o edificio</label>
                                 <Field as="select" name="selection" className='px-3 py-2 focus:outline-none rounded bg-slate-600 text-white w-full mb-4' onChange={(e) => {
                                     setSelection1(e.target.value)
                                 }}>

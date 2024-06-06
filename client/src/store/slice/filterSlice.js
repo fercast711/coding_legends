@@ -3,20 +3,16 @@ import { createSlice } from "@reduxjs/toolkit";
 const filterSlice = createSlice({
     name: "filter",
     initialState:{
-        day: 'TODAS',
-        hour: 'TODAS',
+        data: []
 
     },
     reducers: {
-        setDay: (state, action) => {
-            state.day = action.payload
+        setData: (state, action) => {
+            state.day = [...action.payload]
         },
-        setHour: (state, action) => {
-            state.hour = action.payload
-        }
     }
 })
 
-export const { setDay, setHour } = filterSlice.actions
+export const { setData } = filterSlice.actions
 
 export default filterSlice.reducer

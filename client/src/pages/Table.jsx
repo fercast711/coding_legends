@@ -1,4 +1,8 @@
+import { useSelector } from "react-redux"
+
 export const Table = () => {
+    const { data } = useSelector(state => state.filter)
+    console.log(data)
     return (
         <div class="relative overflow-x-auto flex justify-center mx-2">
             <table class=" text-sm text-left rtl:text-right  text-gray-400">
@@ -17,7 +21,7 @@ export const Table = () => {
                             Seccion
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Aula 
+                            Aula
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Dias habiles
@@ -31,32 +35,39 @@ export const Table = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class=" border-b bg-gray-800 border-gray-700">
-                        <th scope="row" class="px-6 py-4 font-medium  whitespace-nowrap text-white">
-                            Apple MacBook Pro 17"
-                        </th>
-                        <td class="px-6 py-4">
-                            Silver
-                        </td>
-                        <td class="px-6 py-4">
-                            Laptop
-                        </td>
-                        <td class="px-6 py-4">
-                            $2999
-                        </td>
-                        <td class="px-6 py-4">
-                            Laptop
-                        </td>
-                        <td class="px-6 py-4">
-                            $2999
-                        </td>
-                        <td class="px-6 py-4">
-                            Laptop
-                        </td>
-                        <td class="px-6 py-4">
-                            $2999
-                        </td>
-                    </tr>
+                    {
+                        data.map(item => {
+                            return (
+                                <tr class=" border-b bg-gray-800 border-gray-700">
+                                <td class="px-6 py-4">
+                                    Apple MacBook Pro 17"
+                                </td>
+                                <td class="px-6 py-4">
+                                    Silver
+                                </td>
+                                <td class="px-6 py-4">
+                                    Laptop
+                                </td>
+                                <td class="px-6 py-4">
+                                    $2999
+                                </td>
+                                <td class="px-6 py-4">
+                                    Laptop
+                                </td>
+                                <td class="px-6 py-4">
+                                    $2999
+                                </td>
+                                <td class="px-6 py-4">
+                                    Laptop
+                                </td>
+                                <td class="px-6 py-4">
+                                    $2999
+                                </td>
+                            </tr>
+                            )
+                        })
+                    }
+                    
                 </tbody>
             </table>
         </div>

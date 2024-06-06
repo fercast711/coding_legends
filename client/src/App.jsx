@@ -1,8 +1,14 @@
+import { Header } from "./components/Header"
+
+
 function App() {
 
   return (
     <>
-      <h1 className='text-red-400 text-3xl'>HELLO WORLD</h1>
+      <Header />
+      <div className="bg-blue-950 h-screen">
+
+      </div>
     </>
   )
 }

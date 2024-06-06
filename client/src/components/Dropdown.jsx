@@ -1,7 +1,10 @@
 import { useState } from "react"
+import { setDay, setHour } from "../store/slice/filterSlice"
+import { useDispatch } from "react-redux"
 
-export const Dropdown = ({ type, title, list }) => {
+export const Dropdown = ({ type, title, list, itemSelected }) => {
     const [isOpen, setIsopen] = useState(false)
+    const dispatch = useDispatch()
     return (
         <>
             <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" className="text-white  focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center bg-blue-950 hover:bg-blue-800 focus:ring-blue-900" type="button" onClick={() => setIsopen(!isOpen)}>{title} <svg className="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
@@ -15,8 +18,22 @@ export const Dropdown = ({ type, title, list }) => {
                         list.lenght !== 0 && list.map((item) => {
                             return (
                                 <>
-                                    <li>
-                                        <p className="block px-4 py-2  hover:bg-gray-600 hover:text-white">{item}</p>
+                                    <li className="flex justify-between items-center hover:bg-gray-600 hover:text-white px-4 py-2"
+                                    onClick={() => {
+                                        console.log(type)
+                                        switch (type) {
+                                            case 'day':
+                                                dispatch(setDay(item))
+                                                break;
+                                            case 'hour':
+                                                dispatch(setHour(item))
+                                            default:
+                                                break;
+                                        }
+                                        
+                                    }}
+                                    >
+                                        <p className=" ">{item}</p>  <span>{itemSelected === item && '*'} {item==='TODAS' && itemSelected===null && '*'}</span>
                                     </li>
 
                                 </>

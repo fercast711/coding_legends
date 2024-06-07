@@ -3,6 +3,7 @@ import { useState } from "react";
 import * as Yup from "yup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { setData } from "../store/slice/filterSlice";
 export const Filter = () => {
     const navigation = useNavigate()
     const [selection, setSelection] = useState("")
@@ -17,12 +18,12 @@ export const Filter = () => {
     };
 
     const validationSchema = Yup.object({
-        day: Yup.string(),
-        hour: Yup.string(),
-        classroom: Yup.string(),
-        career: Yup.string(),
-        faculty: Yup.string(),
-        building: Yup.string()
+        day: Yup.string().required(),
+        hour: Yup.string().required(),
+        classroom: Yup.string().required(),
+        career: Yup.string().required(),
+        faculty: Yup.string().required(),
+        building: Yup.string().required()
     });
 
     const handleSubmit = (values, actions) => {
@@ -30,6 +31,7 @@ export const Filter = () => {
             .then(response => {
 
                 console.log('Respuesta del servidor:', response.data);
+                setData(response.data.data)
             })
             .catch(error => {
                 console.error('Error al enviar la solicitud:', error);

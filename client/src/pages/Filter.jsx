@@ -3,10 +3,12 @@ import { useState } from "react";
 import * as Yup from "yup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { setData } from "../store/slice/filterSlice";
+import { useDispatch } from "react-redux";
 export const Filter = () => {
     const navigation = useNavigate()
     const [selection, setSelection] = useState("")
-    const [selection1, setSelection1] = useState("")
+    const dispatch = useDispatch()
     const initialValues = {
         day: 'TODAS',
         hour: 'TODAS',
@@ -17,24 +19,24 @@ export const Filter = () => {
     };
 
     const validationSchema = Yup.object({
-        day: Yup.string(),
-        hour: Yup.string(),
-        classroom: Yup.string(),
-        career: Yup.string(),
-        faculty: Yup.string(),
-        building: Yup.string()
+        day: Yup.string().required('El dia es requerido'),
+        hour: Yup.string().required('La hora es requerida'),
+        classroom: Yup.string().required('La aula y edificio es requerida'),
+        career: Yup.string().required('La carrera es requerida'),
+        faculty: Yup.string().required('La facultad es requerida'),
     });
 
     const handleSubmit = (values, actions) => {
         axios.post('/api/filter', values)
             .then(response => {
 
-                console.log('Respuesta del servidor:', response.data);
+                console.log('Respuesta del servidor:', response.data.data);
+                dispatch(setData(response.data.data))
             })
             .catch(error => {
                 console.error('Error al enviar la solicitud:', error);
             });
-        
+
         navigation('/')
         actions.resetForm()
     };
@@ -61,6 +63,7 @@ export const Filter = () => {
                                     <option value='5'>Viernes</option>
                                     <option value='6'>Sabado</option>
                                 </Field>
+                                <ErrorMessage name="day" component="div" className="text-red-500 text-sm mb-4" />
                             </div>
                             <div >
                                 <label htmlFor="hour" className="text-white">Hora</label>
@@ -78,9 +81,10 @@ export const Filter = () => {
                                     <option value="6:30 PM">6:30 PM</option>
                                     <option value="7:50 PM">7:50 PM</option>
                                 </Field>
+                                <ErrorMessage name="hour" component="div" className="text-red-500 text-sm mb-4" />
                             </div>
                             <div >
-                                <label htmlFor="hour" className="text-white">Facultad o carrera</label>
+                                <label htmlFor="selection" className="text-white">Facultad o carrera</label>
                                 <Field as="select" name="selection" className='px-3 py-2 focus:outline-none rounded bg-slate-600 text-white w-full mb-4' onChange={(e) => {
                                     setSelection(e.target.value)
                                 }}>
@@ -91,34 +95,26 @@ export const Filter = () => {
 
                                 {
                                     selection === 'Facultad' && (
-                                        <Field name="faculty" className='px-3 py-2 focus:outline-none rounded bg-slate-600 text-white w-full mb-4'></Field>
+
+                                        <>
+                                            <Field name="faculty" className='px-3 py-2 focus:outline-none rounded bg-slate-600 text-white w-full mb-4'></Field>
+                                            <ErrorMessage name="faculty" component="div" className="text-red-500 text-sm mb-4" />
+                                        </>
                                     )
                                 }
                                 {
                                     selection === 'Carrera' && (
+                                        <>
                                         <Field name="career" className='px-3 py-2 focus:outline-none rounded bg-slate-600 text-white w-full mb-4'></Field>
+                                        <ErrorMessage name="career" component="div" className="text-red-500 text-sm mb-4" />
+                                        </>
                                     )
                                 }
                             </div>
                             <div >
-                                <label htmlFor="hour" className="text-white">Aula o edificio</label>
-                                <Field as="select" name="selection" className='px-3 py-2 focus:outline-none rounded bg-slate-600 text-white w-full mb-4' onChange={(e) => {
-                                    setSelection1(e.target.value)
-                                }}>
-                                    <option value="">Seleccione una de las opciones</option>
-                                    <option value="Aula">Aula</option>
-                                    <option value="Edificio">Edificio</option>
-                                </Field>
-                                {
-                                    selection1 === 'Aula' && (
-                                        <Field name="classroom" className='px-3 py-2 focus:outline-none rounded bg-slate-600 text-white w-full mb-4'></Field>
-                                    )
-                                }
-                                {
-                                    selection1 === 'Edificio' && (
-                                        <Field name="building" className='px-3 py-2 focus:outline-none rounded bg-slate-600 text-white w-full mb-4'></Field>
-                                    )
-                                }
+                                <label htmlFor="classroom" className="text-white">Aula Y edificio</label>
+                                <Field name="classroom" className='px-3 py-2 focus:outline-none rounded bg-slate-600 text-white w-full mb-4'></Field>
+                                <ErrorMessage name="classroom" component="div" className="text-red-500 text-sm mb-4" />
                             </div>
                             <button
                                 className="bg-indigo-600 hover:bg-indigo-500 px-4 py-2 rounded 

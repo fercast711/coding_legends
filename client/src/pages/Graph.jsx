@@ -19,7 +19,11 @@ const Graph = () => {
     });
 
     // Crear nodos para cada aula y enlaces entre aulas si comparten estudiantes
-    const nodes = Array.from(aulaMap.keys()).map(aula_id => ({ id: aula_id, group: 'class' }));
+    const nodes = Array.from(aulaMap.keys()).map(aula_id => ({ 
+      id: aula_id, 
+      group: 'class', 
+      studentCount: aulaMap.get(aula_id).length // Agregar cantidad de estudiantes por aula
+    }));
     const links = [];
     for (let [aula1, students1] of aulaMap.entries()) {
       for (let [aula2, students2] of aulaMap.entries()) {
@@ -65,13 +69,13 @@ const Graph = () => {
       .attr('r', 10)
       .attr('fill', '#69b3a2');
 
-    // Añadir etiquetas a los nodos
+    // Añadir etiquetas a los nodos con la cantidad de estudiantes por aula
     const labels = svg.append('g')
       .attr('class', 'labels')
       .selectAll('text')
       .data(nodes)
       .enter().append('text')
-      .text(d => d.id)
+      .text(d => `${d.id} (${d.studentCount})`)
       .attr('x', 12)
       .attr('y', 3);
 

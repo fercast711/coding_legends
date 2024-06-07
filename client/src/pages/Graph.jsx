@@ -9,7 +9,7 @@ const Graph = () => {
   useEffect(() => {
     if (!data || data.length === 0) return;
 
-    // Crear un mapa para rastrear qué estudiantes están en qué aulas
+    // Creamos un mapa para poder rastrear a cada unos de los estudiantes 
     const aulaMap = new Map();
     data.forEach(student => {
       if (!aulaMap.has(student.aula_id)) {
@@ -18,7 +18,7 @@ const Graph = () => {
       aulaMap.get(student.aula_id).push(student.cuenta.toString());
     });
 
-    // Crear nodos para cada aula y enlaces entre aulas si comparten estudiantes
+    // Creamos nodos para cada aula y enlaces entre aulas si comparten estudiantes
     const nodes = Array.from(aulaMap.keys()).map(aula_id => ({ 
       id: aula_id, 
       group: 'class', 
@@ -36,7 +36,7 @@ const Graph = () => {
       }
     }
 
-    // Configuración de la simulación
+    // Configuramos la simulacion
     const width = 800;
     const height = 600;
     const svg = d3.select(svgRef.current)
@@ -44,14 +44,14 @@ const Graph = () => {
       .style('max-width', '100%')
       .style('height', 'auto');
 
-    svg.selectAll('*').remove(); // Limpiar contenido previo
+    svg.selectAll('*').remove(); // Limpiamos el contenido previo a la nueva carga de datos
 
     const simulation = d3.forceSimulation(nodes)
       .force('link', d3.forceLink(links).id(d => d.id))
       .force('charge', d3.forceManyBody().strength(-400))
       .force('center', d3.forceCenter(width / 2, height / 2));
 
-    // Crear enlaces y nodos en el SVG
+    // Creamos los enlaces entre los nodos
     const link = svg.append('g')
       .attr('class', 'links')
       .selectAll('line')
@@ -69,7 +69,7 @@ const Graph = () => {
       .attr('r', 10)
       .attr('fill', '#69b3a2');
 
-    // Añadir etiquetas a los nodos con la cantidad de estudiantes por aula
+    // AAñadimos las etiquetas a los nodos el aula y la cantidad de estudiantes en ella
     const labels = svg.append('g')
       .attr('class', 'labels')
       .selectAll('text')
@@ -79,7 +79,7 @@ const Graph = () => {
       .attr('x', 12)
       .attr('y', 3);
 
-    // Función para actualizar posiciones durante la simulación
+    // Esta funcion la utilizaremos para actualizar las posiciones en la simulacion
     function ticked() {
       link
         .attr('x1', d => d.source.x)

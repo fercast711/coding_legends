@@ -1,3 +1,4 @@
+/* Al utilizar tailwind necesitamos importar sus estilos al index.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

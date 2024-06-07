@@ -8,7 +8,9 @@ import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    {/* Utilizamos el componente BrowserRouter para poder navegar entre paginas */}
     <BrowserRouter>
+    {/* Envolvemos nuestro proyecto en la store de redux para tener la data que necesitamos a nivel global */}
       <Provider store={store}>
         <App />
       </Provider>

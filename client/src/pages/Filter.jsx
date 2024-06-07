@@ -1,3 +1,4 @@
+//importamos los hooks y compenentes necesarios de las libs
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import { useState } from "react";
 import * as Yup from "yup";
@@ -6,9 +7,11 @@ import { useNavigate } from "react-router-dom";
 import { setData } from "../store/slice/filterSlice";
 import { useDispatch } from "react-redux";
 export const Filter = () => {
+    // Instaciamos las variables que vamos a usar acontinuacion con sus respectivos hooks
     const navigation = useNavigate()
     const [selection, setSelection] = useState("")
     const dispatch = useDispatch()
+    //Inicializamos las variables que enviaremos a la base de datos
     const initialValues = {
         day: 'TODAS',
         hour: 'TODAS',
@@ -17,7 +20,7 @@ export const Filter = () => {
         faculty: 'TODAS',
         building: 'TODAS'
     };
-
+//Validamos que el usuario ingrese el dato correctamente con la lib yup
     const validationSchema = Yup.object({
         day: Yup.string().required('El dia es requerido'),
         hour: Yup.string().required('La hora es requerida'),
@@ -25,18 +28,19 @@ export const Filter = () => {
         career: Yup.string().required('La carrera es requerida'),
         faculty: Yup.string().required('La facultad es requerida'),
     });
-
+//Manejamos el submit para poder enviar la data a hacia la base de datos
     const handleSubmit = (values, actions) => {
         axios.post('/api/filter', values)
             .then(response => {
-
+                //si obtenemos la data correctamente la seteamos hacia nuestro estado global
                 console.log('Respuesta del servidor:', response.data.data);
                 dispatch(setData(response.data.data))
             })
             .catch(error => {
+                //si nos da un error lo imprimimos en la consola
                 console.error('Error al enviar la solicitud:', error);
             });
-
+            //ya sea que los datos se reciban correctamente o no nos dirigmos hacia el grafo
         navigation('/')
         actions.resetForm()
     };

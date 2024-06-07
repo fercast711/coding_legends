@@ -1,9 +1,12 @@
 import { useLocation, useNavigate } from 'react-router-dom'
 
 export const Header = () => {
+    //usamos el useLocation para poder saber en que parte del la url estamos ubicados
     const location = useLocation()
+    //usamos navigation para navegar entre los routes
     const navigation = useNavigate()
     return (
+        // creamos el header del sitio web donde podremos ir del form del filtro o la pagina del grafo
         <header>
             <nav class="bg-white border-gray-200 px-4 lg:px-6 py-3">
                 <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
@@ -13,6 +16,7 @@ export const Header = () => {
 
                     <div>
                         {
+                            // hacemos la validacion de si estamos ubicados en la ruta raiz para crear un boton que nos movilize a la ruta /fliter
                             location.pathname === '/' && (<>
                                 <button 
                                 onClick={() => navigation('/filter')}
@@ -20,6 +24,7 @@ export const Header = () => {
                             </>)
                         }
                         {
+                            // hacemos la validacion de si estamos ubicados en la ruta /filter para crear un boton que nos movilize a la ruta /
                             location.pathname === '/filter' && (<>
                                 <button
                                 onClick={() => navigation('/')}

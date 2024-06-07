@@ -1,9 +1,19 @@
+import { Route, Routes } from "react-router-dom";
+import { Filter } from "./pages/Filter";
+import { Header } from "./components/Header";
+import { Table } from "./pages/Table";
+
 function App() {
 
   return (
-    <>
-      <h1 className='text-red-400 text-3xl'>HELLO WORLD</h1>
-    </>
+    <div className="bg-blue-950 h-screen">
+      <Header />
+      <Routes>
+        <Route path="/filter" element={<Filter />}/>
+        <Route path="/" element={<Table />} />
+      </Routes>
+    </div>
+
   )
 }
 

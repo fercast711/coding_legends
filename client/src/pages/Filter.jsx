@@ -4,10 +4,12 @@ import * as Yup from "yup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { setData } from "../store/slice/filterSlice";
+import { useDispatch } from "react-redux";
 export const Filter = () => {
     const navigation = useNavigate()
     const [selection, setSelection] = useState("")
     const [selection1, setSelection1] = useState("")
+    const dispatch = useDispatch()
     const initialValues = {
         day: 'TODAS',
         hour: 'TODAS',
@@ -30,8 +32,8 @@ export const Filter = () => {
         axios.post('/api/filter', values)
             .then(response => {
 
-                console.log('Respuesta del servidor:', response.data);
-                setData(response.data.data)
+                console.log('Respuesta del servidor:', response.data.data);
+                dispatch(setData(response.data.data))
             })
             .catch(error => {
                 console.error('Error al enviar la solicitud:', error);

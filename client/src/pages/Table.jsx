@@ -40,28 +40,28 @@ export const Table = () => {
                             return (
                                 <tr class=" border-b bg-gray-800 border-gray-700">
                                 <td class="px-6 py-4">
-                                    Apple MacBook Pro 17"
+                                    {item.cuenta}
                                 </td>
                                 <td class="px-6 py-4">
-                                    Silver
+                                {item.carrera}
                                 </td>
                                 <td class="px-6 py-4">
-                                    Laptop
+                                    {item.facultad}
                                 </td>
                                 <td class="px-6 py-4">
-                                    $2999
+                                    {item.seccion}
                                 </td>
                                 <td class="px-6 py-4">
-                                    Laptop
+                                    {item.aula_id}
                                 </td>
                                 <td class="px-6 py-4">
-                                    $2999
+                                    {item.dias_habiles}
                                 </td>
                                 <td class="px-6 py-4">
-                                    Laptop
+                                    {item.hora}
                                 </td>
                                 <td class="px-6 py-4">
-                                    $2999
+                                    {item.materia}
                                 </td>
                             </tr>
                             )

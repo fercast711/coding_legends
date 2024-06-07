@@ -1,8 +1,8 @@
 import pkg from "pg";
 import { DATABASE, HOST, PASSWORD, PORTDB, USER } from "./config.js";
-const { Pool } = pkg
+const { Client } = pkg
 
-const pool = new Pool({
+const client = new Client({
     user: USER,
     host: HOST,
     database: DATABASE,
@@ -10,4 +10,4 @@ const pool = new Pool({
     port: PORTDB,
   })
 
-export default pool;
+export default client;

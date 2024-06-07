@@ -8,7 +8,7 @@ const filterSlice = createSlice({
     },
     reducers: {
         setData: (state, action) => {
-            state.day = [...action.payload]
+            state.data = [...action.payload]
         },
     }
 })
